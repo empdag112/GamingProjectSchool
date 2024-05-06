@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://cglxosy2pum4e"]
+
+[ext_resource type="Texture2D" uid="uid://i2q3v301juaa" path="res://assets/purple.png" id="1_i2on0"]
+[ext_resource type="Script" path="res://scenes/playground.gd" id="1_ypbo4"]
+[ext_resource type="PackedScene" uid="uid://dydj1bmt6nv0o" path="res://scenes/player.tscn" id="2_y731o"]
+[ext_resource type="PackedScene" uid="uid://dhxrpe4et6w74" path="res://scenes/track.tscn" id="3_m878u"]
+[ext_resource type="PackedScene" uid="uid://d1u3x1ta125p0" path="res://scenes/finish.tscn" id="4_mm4lx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ygbg"]
+font_size = 25
+
+[node name="Playground" type="Node2D"]
+script = ExtResource("1_ypbo4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_index = -100
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("1_i2on0")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("2_y731o")]
+z_index = 10
+position = Vector2(256, 72)
+
+[node name="Track" parent="." instance=ExtResource("3_m878u")]
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Label2" type="Label" parent="Labels"]
+z_index = 10
+offset_left = 623.0
+offset_top = -173.0
+offset_right = 839.0
+offset_bottom = -136.0
+text = "Congratulations!!!"
+label_settings = SubResource("LabelSettings_7ygbg")
+
+[node name="Label3" type="Label" parent="Labels"]
+z_index = 10
+offset_left = -104.0
+offset_top = 115.0
+offset_right = 197.0
+offset_bottom = 188.0
+text = "Use WASD or Arrow Keys
+ to Navigate. Good luck!"
+label_settings = SubResource("LabelSettings_7ygbg")
+
+[node name="Label5" type="Label" parent="Labels"]
+z_index = 10
+offset_left = 378.0
+offset_top = 43.0
+offset_right = 628.0
+offset_bottom = 116.0
+text = "You have 16 seconds 
+to prove your worth!"
+label_settings = SubResource("LabelSettings_7ygbg")
+
+[node name="Label4" type="Label" parent="Labels"]
+z_index = 10
+offset_left = 198.0
+offset_top = -3.0
+offset_right = 333.0
+offset_bottom = 34.0
+text = "Start Here!"
+label_settings = SubResource("LabelSettings_7ygbg")
+
+[node name="End loop" parent="." instance=ExtResource("4_mm4lx")]
+position = Vector2(731, -153)
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 18.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
